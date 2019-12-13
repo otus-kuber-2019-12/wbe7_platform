@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello from K8s!")
+	http.HandleFunc("/_healthz", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "OK")
 	})
 	fs := http.FileServer(http.Dir("/app/"))
 	http.Handle("/", http.StripPrefix("/", fs))
