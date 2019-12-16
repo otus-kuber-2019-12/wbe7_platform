@@ -11,3 +11,17 @@
 *6. Исправлена причина ошибки в frontend-pod.yaml. Рабочий манифест frontend-pod-healthy.yaml.
 Ошибка заключалась в том, что не были указаны переменные окружения, без которых микросервис не запускался. 
 
+
+##### Запуск
+
+Запуск web:
+
+`kubectl apply -f web-pod.yaml`
+
+`sudo kubectl port-forward web 80:8000`
+
+Запуск frontend:
+
+`kubectl apply -f frontend-pod-healthy.yaml`
+
+`sudo kubectl port-forward web 80:8080`
