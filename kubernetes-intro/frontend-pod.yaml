@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: frontend
+  name: frontend
+spec:
+  containers:
+  - image: wbe7/hipster-frontend:1.0
+    name: frontend
