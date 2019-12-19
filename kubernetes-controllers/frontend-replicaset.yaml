@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: server
-        image: wbe7/hipster-frontend:1.0
+        image: wbe7/hipster-frontend:v0.0.2
         env:
           - name: PRODUCT_CATALOG_SERVICE_ADDR
             value: "productcatalogservice:3550"
