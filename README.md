@@ -49,4 +49,4 @@ http://127.0.0.1:9100/metrics
 
 | HW Dashboard                                                                                                         |
 | :----------------------------------------------------------------------------------------------------------------------------------- |
-| [**Homework**](https://github.com/orgs/otus-kuber-2019-12/projects/1)<br/> Панель контроля review PR (Pull Request). |
+| [**Homework**](https://github.com/orgs/otus-kuber-2019-12/projects/1)<br/> Panel for review PR (Pull Requests). |
