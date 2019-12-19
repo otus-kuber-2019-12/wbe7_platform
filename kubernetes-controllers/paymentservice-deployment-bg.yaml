@@ -9,6 +9,10 @@ spec:
   selector:
     matchLabels:
       app: paymentservice
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -17,6 +21,7 @@ spec:
       containers:
         - name: server
           image: wbe7/hipster-paymentservice:v0.0.2
+
           env:
             - name: PRODUCT_CATALOG_SERVICE_ADDR
               value: "productcatalogservice:3550"
