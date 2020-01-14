@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp
+  name: web
   labels:
-    app: webapp
+    app: web
 spec:
   replicas: 3
   selector:
@@ -39,8 +39,7 @@ spec:
               port: 8000
           livenessProbe:
             initialDelaySeconds: 10
-            httpGet:
-              path: "/_healthz"
+            tcpSocket:
               port: 8000
       volumes:
         - name: app
