@@ -98,6 +98,52 @@ yes
 
 no
 
+kubernetes-networks
+-
+#### Run kubernetes-networks
+
+`kubectl apply -f kubernetes-networks/web-deploy.yaml`
+
+`kubectl apply -f kubernetes-networks/web-svc-cip.yaml -f kubernetes-networks/web-svc-lb.yaml -f kubernetes-networks/web-svc-headless.yaml`
+
+`kubectl apply -f kubernetes-networks/web-ingress.yaml`
+
+Со *
+
+`kubectl apply -f kubernetes-networks/coredns/`
+
+`kubectl apply -f kubernetes-networks/dashboard/`
+
+`kubectl apply -f kubernetes-networks/canary/app-v1.yaml -f kubernetes-networks/canary/ingress-v1.yaml`
+
+`kubectl apply -f kubernetes-networks/canary/app-v2.yaml`
+
+`kubectl apply -f kubernetes-networks/canary/ingress-v2-canary.yaml`
+
+#### Expose kubernetes-networks
+
+В зависимости от последовательности развертывания LB сервиса nginx-ingress и web-svc-lb используемые IP адреса могут отличаться. Для проверки IP адреса можно выполнить следующие команды:
+
+`kubectl get svc`
+
+`kubectl get svc -n ingress-nginx `
+
+#### Explore kubernetes-networks
+
+После того, как узнали IP адрес балансировщика ingress и сервиса web-svc-lb, проверяем наши сервисы:
+
+http://172.17.255.*
+
+http://172.17.255.*/web
+
+Со *
+
+nslookup web-svc-cip.default.svc.cluster.local 172.17.255.10
+
+https://172.17.255.*/dashboard
+
+while sleep 0.1; do curl 172.17.255.* -H "Host: my-app.com"; done
+
 
 | HW Dashboard                                                                                                         |
 | :----------------------------------------------------------------------------------------------------------------------------------- |
