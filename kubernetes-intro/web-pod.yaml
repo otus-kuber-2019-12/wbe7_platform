@@ -21,7 +21,7 @@ spec:
       readinessProbe:
         initialDelaySeconds: 10
         httpGet:
-          path: "/_healthz"
+          path: "/index.html"
           port: 8000
       livenessProbe:
         initialDelaySeconds: 10
