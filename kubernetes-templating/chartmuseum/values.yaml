@@ -10,3 +10,5 @@ ingress:
     path: /
     tls: true
     tlsSecret: chartmuseum.34.89.199.143.nip.io
+persistence:
+  enabled: true
