@@ -144,6 +144,20 @@ https://172.17.255.*/dashboard
 
 while sleep 0.1; do curl 172.17.255.* -H "Host: my-app.com"; done
 
+kubernetes-volumes
+-
+#### Run kubernetes-volumes
+
+`kubectl apply -f kubernetes-volumes/`
+
+#### Expose kubernetes-volumes
+
+`kubectl port-forward minio-0 9000:9000`
+
+#### Explore kubernetes-volumes
+
+http://127.0.0.1:9000
+
 
 | HW Dashboard                                                                                                         |
 | :----------------------------------------------------------------------------------------------------------------------------------- |
