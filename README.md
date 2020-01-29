@@ -158,6 +158,21 @@ kubernetes-volumes
 
 http://127.0.0.1:9000
 
+kubernetes-templating
+-
+#### Run kubernetes-templating
+
+`helm repo add harbor https://helm.goharbor.io`
+
+`helm upgrade --install harbor harbor/harbor --wait --namespace=harbor --version=1.1.2 -f kubernetes-templating/harbor/values.yaml`
+
+#### Expose kubernetes-templating
+
+`kubectl port-forward minio-0 9000:9000`
+
+#### Explore kubernetes-templating
+
+http://127.0.0.1:9000
 
 | HW Dashboard                                                                                                         |
 | :----------------------------------------------------------------------------------------------------------------------------------- |
