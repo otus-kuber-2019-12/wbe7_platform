@@ -5,7 +5,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  type: NodePort
+  type: {{ .Values.service.type }}
   selector:
     app: frontend
   ports:
