@@ -162,17 +162,27 @@ kubernetes-templating
 -
 #### Run kubernetes-templating
 
+`kubectl create ns harbor`
+
 `helm repo add harbor https://helm.goharbor.io`
 
 `helm upgrade --install harbor harbor/harbor --wait --namespace=harbor --version=1.1.2 -f kubernetes-templating/harbor/values.yaml`
 
-#### Expose kubernetes-templating
+`bash kubernetes-templating/repo.sh`
 
-`kubectl port-forward minio-0 9000:9000`
+`kubectl create ns hipster-shop`
+
+`helm upgrade --install hipster-shop templating/hipster-shop --namespace hipster-shop`
+
+`helm upgrade --install frontend templating/frontend --namespace hipster-shop`
+
+`kubecfg update kubernetes-templating/kubecfg/services.jsonnet --namespace hipster-shop`
+
+`kubectl apply -k kubernetes-templating/kustomize/overrides/stage/`
 
 #### Explore kubernetes-templating
 
-http://127.0.0.1:9000
+https://frontend-34-89-199-143.sslip.io
 
 | HW Dashboard                                                                                                         |
 | :----------------------------------------------------------------------------------------------------------------------------------- |
