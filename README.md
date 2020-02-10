@@ -162,6 +162,10 @@ kubernetes-templating
 -
 #### Run kubernetes-templating
 
+`kubectl create ns chartmuseum`
+
+`helm upgrade --install chartmuseum stable/chartmuseum --wait --namespace=chartmuseum --version=2.3.2 -f kubernetes-templating/chartmuseum/values.yaml`
+
 `kubectl create ns harbor`
 
 `helm repo add harbor https://helm.goharbor.io`
@@ -172,15 +176,17 @@ kubernetes-templating
 
 `kubectl create ns hipster-shop`
 
-`helm upgrade --install hipster-shop templating/hipster-shop --namespace hipster-shop`
+`helm upgrade --install hipster-shop templating/hipster-shop --wait --namespace hipster-shop`
 
-`helm upgrade --install frontend templating/frontend --namespace hipster-shop`
+`helm upgrade --install frontend templating/frontend --wait --namespace hipster-shop`
 
 `kubecfg update kubernetes-templating/kubecfg/services.jsonnet --namespace hipster-shop`
 
 `kubectl apply -k kubernetes-templating/kustomize/overrides/stage/`
 
 #### Explore kubernetes-templating
+
+https://chartmuseum.34.89.199.143.nip.io/
 
 https://frontend-34-89-199-143.sslip.io
 
