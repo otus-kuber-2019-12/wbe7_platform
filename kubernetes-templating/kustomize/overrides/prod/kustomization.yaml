@@ -1,0 +1,11 @@
+bases:
+  - ../../base/
+
+NameSuffix: -prod
+namespace: hipster-shop-prod
+commonLabels:
+  app: productcatalogservice-prod
+
+patchesStrategicMerge:
+  - deployment.yaml
+  - service.yaml
