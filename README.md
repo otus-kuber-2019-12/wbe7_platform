@@ -158,6 +158,37 @@ kubernetes-volumes
 
 http://127.0.0.1:9000
 
+kubernetes-templating
+-
+#### Run kubernetes-templating
+
+`kubectl create ns chartmuseum`
+
+`helm upgrade --install chartmuseum stable/chartmuseum --wait --namespace=chartmuseum --version=2.3.2 -f kubernetes-templating/chartmuseum/values.yaml`
+
+`kubectl create ns harbor`
+
+`helm repo add harbor https://helm.goharbor.io`
+
+`helm upgrade --install harbor harbor/harbor --wait --namespace=harbor --version=1.1.2 -f kubernetes-templating/harbor/values.yaml`
+
+`bash kubernetes-templating/repo.sh`
+
+`kubectl create ns hipster-shop`
+
+`helm upgrade --install hipster-shop templating/hipster-shop --wait --namespace hipster-shop`
+
+`helm upgrade --install frontend templating/frontend --wait --namespace hipster-shop`
+
+`kubecfg update kubernetes-templating/kubecfg/services.jsonnet --namespace hipster-shop`
+
+`kubectl apply -k kubernetes-templating/kustomize/overrides/stage/`
+
+#### Explore kubernetes-templating
+
+https://chartmuseum.34.89.199.143.nip.io/
+
+https://frontend-34-89-199-143.sslip.io
 
 | HW Dashboard                                                                                                         |
 | :----------------------------------------------------------------------------------------------------------------------------------- |
