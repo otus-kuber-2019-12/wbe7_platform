@@ -213,6 +213,29 @@ restore-mysql-instance-job   1/1           5m46s      12m
 `kubectl exec -it $MYSQLPOD -- mysql -potuspassword -e "select * from test;" otus-database`
 
 
+kubernetes-operators
+-
+#### Run kubernetes-operators
+
+`kubectl apply -f kubernetes-operators/deploy/`
+
+
+#### Explore kubernetes-operators
+
+`kubectl get jobs`
+
+```
+NAME                         COMPLETIONS   DURATION   AGE
+backup-mysql-instance-job    1/1           2s         8m40s
+restore-mysql-instance-job   1/1           5m46s      12m
+
+```
+
+`export MYSQLPOD=$(kubectl get pods -l app=mysql-instance -o jsonpath="{.items[*].metadata.name}")`
+
+`kubectl exec -it $MYSQLPOD -- mysql -potuspassword -e "select * from test;" otus-database`
+
+
 | HW Dashboard                                                                                                         |
 | :----------------------------------------------------------------------------------------------------------------------------------- |
 | [**Homework**](https://github.com/orgs/otus-kuber-2019-12/projects/1)<br/> Panel for review PR (Pull Requests). |
