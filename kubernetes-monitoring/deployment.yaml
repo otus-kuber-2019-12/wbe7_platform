@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: wbe7/nginx:v0.2
+        ports:
+          - containerPort: 80
+          - containerPort: 8000
+        readinessProbe:
+          initialDelaySeconds: 10
+          httpGet:
+            path: "/"
+            port: 80
+        livenessProbe:
+          initialDelaySeconds: 10
+          httpGet:
+            path: "/"
+            port: 80
+      - name: nginx-exporter
+        image: nginx/nginx-prometheus-exporter:0.6.0
+        ports:
+          - containerPort: 9113
+        args: ['-nginx.scrape-uri', 'http://localhost:8000/basic_status']

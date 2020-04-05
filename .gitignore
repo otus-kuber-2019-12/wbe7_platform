@@ -1,2 +1,4 @@
 .idea/
 *.tgz
+kubernetes-operators/build/kopf-venv/
+kubernetes-operators/build/__pycache__/
