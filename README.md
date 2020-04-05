@@ -212,7 +212,29 @@ restore-mysql-instance-job   1/1           5m46s      12m
 
 `kubectl exec -it $MYSQLPOD -- mysql -potuspassword -e "select * from test;" otus-database`
 
+kubernetes-monitoring
+-
+#### Run kubernetes-monitoring
 
-| HW Dashboard                                                                                                         |
+`kubectl create ns monitoring`
+
+`helm upgrade --install monitoring stable/prometheus-operator --namespace monitoring`
+
+`kubectl apply -f kubernetes-monitoring/`
+
+#### Expose kubernetes-monitoring
+
+`kubectl port-forward service/monitoring-grafana -n monitoring 3000:80`
+
+`kubectl port-forward service/monitoring-prometheus-oper-prometheus -n monitoring 9090:9090`
+
+#### Explore kubernetes-monitoring
+
+http://127.0.0.1:3000
+
+http://127.0.0.1:9090
+
+
+| WBE7 Dashboard                                                                                                         |
 | :----------------------------------------------------------------------------------------------------------------------------------- |
-| [**Homework**](https://github.com/orgs/otus-kuber-2019-12/projects/1)<br/> Panel for review PR (Pull Requests). |
+| [**Homework**](https://github.com/orgs/otus-kuber-2019-12/projects/1?card_filter_query=author%3Awbe7)<br/> Panel for review PR (Pull Requests). |
