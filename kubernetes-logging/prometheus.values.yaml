@@ -1,0 +1,15 @@
+prometheus:
+  nodeSelector:
+    cloud.google.com/gke-nodepool: infra-pool
+  prometheusSpec:
+    replicas: 2
+  ingress:
+    enabled: true
+    hosts:
+      - prometheus.35.228.29.39.xip.io
+
+grafana:
+  ingress:
+    enabled: true
+    hosts:
+    - grafana.35.228.29.39.xip.io
