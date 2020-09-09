@@ -1,0 +1,14 @@
+loki:
+  ingress:
+    enabled: true
+    hosts:
+    - host: loki.35.228.29.39.xip.io
+      paths:
+      - /
+
+promtail:
+  tolerations:
+    - key: node-role
+      operator: Equal
+      value: infra
+      effect: NoSchedule

@@ -29,3 +29,12 @@ controller:
       "path": "$uri", "request_query": "$args", "request_length": $request_length, "duration": $request_time,"method": "$request_method", "http_referrer": "$http_referer",
       "http_user_agent": "$http_user_agent" }'
     log-format: json
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: monitoring
+      namespace: "ingress"
+      scrapeInterval: 30s

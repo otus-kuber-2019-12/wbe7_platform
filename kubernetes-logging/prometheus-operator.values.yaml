@@ -13,3 +13,10 @@ grafana:
     enabled: true
     hosts:
     - grafana.35.228.29.39.xip.io
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki.observability:3100
+      jsonData:
+        maxLines: 1000
