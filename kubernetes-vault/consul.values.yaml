@@ -1,0 +1,9 @@
+ui:
+  # True if you want to enable the Consul UI. The UI will run only
+  # on the server nodes. This makes UI access via the service below (if
+  # enabled) predictable rather than "any node" if you're running Consul
+  # clients as well.
+  enabled: true
+  service:
+    enabled: true
+    type: LoadBalancer

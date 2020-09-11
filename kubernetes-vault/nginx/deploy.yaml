@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ssl
+  namespace: vault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-ssl
+  template:
+    metadata:
+      labels:
+        app: nginx-ssl
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-secret-server.cert: "pki_int/issue/example-dot-ru"
+        vault.hashicorp.com/agent-inject-template-server.cert: |
+          {{- with secret "pki_int/issue/example-dot-ru" "common_name=nginx.example.ru" -}}
+          {{ .Data.certificate }}
+          {{- end }}
+        vault.hashicorp.com/agent-inject-secret-server.key: "pki_int/issue/example-dot-ru"
+        vault.hashicorp.com/agent-inject-template-server.key: |
+          {{- with secret "pki_int/issue/example-dot-ru" "common_name=nginx.example.ru" -}}
+          {{ .Data.private_key }}
+          {{- end }}
+        vault.hashicorp.com/role: "otus"
+        vault.hashicorp.com/tls-skip-verify: "true"
+        vault.hashicorp.com/service: "http://vault:8200"
+    spec:
+      serviceAccountName: vault-auth
+
+      volumes:
+      - configMap:
+          items:
+          - key: vault-agent-config.hcl
+            path: vault-agent-config.hcl
+          name: nginx-agent-config
+        name: config
+      - configMap:
+          items:
+            - key: nginx.conf
+              path: nginx.conf
+          name: nginx-config
+        name: nginx-conf
+      - emptyDir: {}
+        name: shared-data
+
+      initContainers:
+      - args:
+        - agent
+        - -config=/etc/vault/vault-agent-config.hcl
+        - -log-level=info
+        env:
+        - name: VAULT_ADDR
+          value: http://vault:8200
+        image: vault
+        name: vault-agent1
+        volumeMounts:
+        - mountPath: /etc/vault
+          name: config
+        - mountPath: /etc/secrets
+          name: shared-data
+
+      containers:
+      - image: nginx
+        name: nginx-container
+        ports:
+        - containerPort: 443
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: shared-data
+        - mountPath: /etc/nginx/
+          name: nginx-conf
